@@ -1,9 +1,12 @@
 package travel.placesbeen.city;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public record CityRequest (
-        String  name,
-        String country,
-        Double latitude,
-        Double longitude
+       @NotBlank String  name,
+       @NotBlank String country,
+       @NotNull Double latitude,
+       @NotNull Double longitude
 ){}
 
