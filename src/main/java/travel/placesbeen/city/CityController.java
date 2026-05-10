@@ -1,10 +1,7 @@
 package travel.placesbeen.city;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -34,5 +31,10 @@ public class CityController {
                 .buildAndExpand(newCity.id())
                 .toUri();
         return ResponseEntity.created(location).body(new CityResponse(cityRequest.getId(), cityRequest.getName(), cityRequest.getLatitude(), cityRequest.getLongitude(), cityRequest.getCountry(), cityRequest.getFlagUrl()));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCity(Long id) {
+        return ResponseEntity.noContent().build();
     }
 }
