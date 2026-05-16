@@ -14,10 +14,15 @@ import java.util.List;
 @RequestMapping("/api/v1/cities")
 @Tag( name = "City API", description = "API for managing cities")
 public class CityController {
+    private final CityService cityService;
+
+    public CityController(CityService cityService) {
+        this.cityService = cityService;
+    }
 
     @GetMapping
     public ResponseEntity<List<CityResponse>> getAllCities() {
-        return ResponseEntity.ok(List.of(new CityResponse(1L, "New York", 40.7128, -74.0060, "USA", "https://flagcdn.com/w40.png")));
+        return ResponseEntity.ok(cityService.getAllCities());
     }
 
     @GetMapping("/{id}")
@@ -27,7 +32,7 @@ public class CityController {
 
     @PostMapping
     public ResponseEntity<CityResponse> addCity(@Valid @RequestBody CityRequest cityRequest) {
-        CityResponse newCity = new CityResponse(1L, "New York", 40.7128, -74.0060, "USA", "https://flagcdn.com/w40.png");
+        CityResponse newCity = cityService.addCity(cityRequest);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()    // Takes "http://localhost:8080/api/v1/cities"
                 .path("/{id}")           // Appends "/{id}"

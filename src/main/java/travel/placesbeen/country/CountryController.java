@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping
+@RequestMapping( "/api/v1/countries")
 @Tag( name = "Country API", description = "API for managing countries")
 public class CountryController {
 }
