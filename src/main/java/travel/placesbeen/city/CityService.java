@@ -1,9 +1,10 @@
 package travel.placesbeen.city;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
-import travel.placesbeen.country.CountryRepository;
 import travel.placesbeen.country.Country;
+import travel.placesbeen.country.CountryRepository;
 
 import java.util.List;
 
@@ -32,8 +33,20 @@ public class CityService {
 
 
     public List<CityResponse> getAllCities() {
-        return cityRepository.findAll().stream().map(this::mapToResponse).toList();
+        return cityRepository.findAllByOrderByIdAsc().stream().map(this::mapToResponse).toList();
 
+    }
+
+    public CityResponse updateCity(CityRequest cityRequest, Long id) {
+        City city = cityRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("City not found with id: " + id));
+
+        city.setName(cityRequest.name());
+        city.setLatitude(cityRequest.latitude());
+        city.setLongitude(cityRequest.longitude());
+
+        City updatedCity = cityRepository.save(city);
+        return mapToResponse(updatedCity);
     }
 
     // Private helper to keep code DRY (Don't Repeat Yourself)

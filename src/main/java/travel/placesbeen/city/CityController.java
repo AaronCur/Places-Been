@@ -43,7 +43,7 @@ public class CityController {
 
     @PutMapping(value = "/{id}", version = "1")
     public ResponseEntity<CityResponse> updateCity(@PathVariable Long id, @Valid @RequestBody CityRequest cityRequest) {
-        return ResponseEntity.ok(new CityResponse(1L, "New York", 40.7128, -74.0060, "USA", "https://flagcdn.com/w40.png"));
+        return ResponseEntity.ok(cityService.updateCity(cityRequest, id));
     }
 
     @DeleteMapping(value = "/{id}", version = "1")
