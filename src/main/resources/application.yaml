@@ -13,3 +13,10 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  mvc:
+    apiversion:
+      supported: 1
+      default: 1
+      enabledd: true
+      use:
+        header: Api-Version
